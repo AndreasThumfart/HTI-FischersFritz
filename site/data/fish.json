@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Barsch",
+        "img":"assets/img/fish.jpg",
+        "description":""
+    },
+    {
+        "id":2,
+        "name": "Forelle",
+        "img":"assets/img/fish.jpg",
+        "description":""
+    },
+    {
+        "id": 3,
+        "name": "Lachs",
+        "img":"assets/img/fish.jpg",
+        "description":""
+    }
+]

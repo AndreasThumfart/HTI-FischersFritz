@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/c6cb80ae-1d5c-4b0c-b779-6423fc84db21/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/HTI-FischersFritz",
+    "appService.deploySubpath": "site"
+}
