@@ -6,6 +6,8 @@
     // 
 // Scripts
 // 
+var user;
+var fish;
 
 window.addEventListener('DOMContentLoaded', event => {
 
@@ -24,3 +26,29 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+
+function loadUserData(username) {
+    $.getJSON('data/userdata.json', function(data) {
+        console.log(data);
+        users = data.filter(user => user.username === username);
+        if(users.length > 0){
+            user = users[0];
+        }
+    }).fail(function(jqxhr, textStatus, error) {
+        console.error('Request Failed: ' + textStatus + ', ' + error);
+    });
+    return user;
+}
+
+function loadFishData() {
+    $.getJSON('data/fish.json', function(data) {
+        console.log(data);
+        fish = data;
+    }).fail(function(jqxhr, textStatus, error) {
+        console.error('Request Failed: ' + textStatus + ', ' + error);
+    });
+    return fish;
+}
+
+

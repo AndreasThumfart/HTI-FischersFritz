@@ -16,5 +16,23 @@
         "name": "Lachs",
         "img":"assets/img/fish.jpg",
         "description":""
+    },
+    {
+        "id": 4,
+        "name": "Hecht",
+        "img":"assets/img/fish.jpg",
+        "description":""
+    },
+    {
+        "id": 5,
+        "name": "Karpfen",
+        "img":"assets/img/fish.jpg",
+        "description":""
+    },
+    {
+        "id": 6,
+        "name": "Wels",
+        "img":"assets/img/fish.jpg",
+        "description":""
     }
 ]

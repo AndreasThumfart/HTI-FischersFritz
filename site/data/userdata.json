@@ -1,6 +1,8 @@
 [
     {
-        "user": "test@test.com",
+        "username": "test@test.com",
+        "name":"Max Musermann",
+        "registration":"2023-08-19T12:00:00",
         "history": [
             {
                 "id": 1,
@@ -8,20 +10,62 @@
                 "weight": 5.4,
                 "length": 54,
                 "date": "2024-12-13T13:30:00",
-                "location": "48.20343780208678, 16.437628360949162"
+                "location": "48.20343780208678, 16.437628360949162",
+                "spot": "Ufer, nahe der Schilfkante",
+                "bait": "Gummifisch",
+                "technique": "Jiggen",
+                "weather": "sonnig",
+                "waterTemp": 14,
+                "notes": "Erster Fang des Tages, guter Drill."
+            },
+            {
+                "id": 2,
+                "fish": 2,
+                "weight": 5.4,
+                "length": 54,
+                "date": "2024-08-11T13:30:00",
+                "location": "48.20343780208678, 16.437628360949162",
+                "spot": "Ufer, nahe der Schilfkante",
+                "bait": "Gummifisch",
+                "technique": "Jiggen",
+                "weather": "sonnig",
+                "waterTemp": 14,
+                "notes": "Erster Fang des Tages, guter Drill."
+            },
+            {
+                "id": 3,
+                "fish": 4,
+                "weight": 5.4,
+                "length": 54,
+                "date": "2024-03-29T13:30:00",
+                "location": "48.20343780208678, 16.437628360949162",
+                "spot": "Ufer, nahe der Schilfkante",
+                "bait": "Gummifisch",
+                "technique": "Jiggen",
+                "weather": "sonnig",
+                "waterTemp": 14,
+                "notes": "Erster Fang des Tages, guter Drill."
             }
         ]
     },
     {
-        "user": "demo@test.com",
+        "username": "demo@test.com",
+        "name":"Thomas Test",
+        "registration":"2023-08-19T12:00:00",
         "history": [
             {
                 "id": 1,
-                "fish": 1,
-                "weight": 5.4,
-                "length": 54,
+                "fish": 3,
+                "weight": 2.1,
+                "length": 32,
                 "date": "",
-                "location": ""
+                "location": "",
+                "spot": "Ufer, nahe der Schilfkante",
+                "bait": "Gummifisch",
+                "technique": "Jiggen",
+                "weather": "sonnig",
+                "waterTemp": 14,
+                "notes": "Erster Fang des Tages, guter Drill."
             }
         ]
     }
