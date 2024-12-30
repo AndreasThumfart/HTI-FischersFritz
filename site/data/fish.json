@@ -2,37 +2,43 @@
     {
         "id": 1,
         "name": "Barsch",
-        "img":"assets/img/fish.jpg",
+        "img":"assets/img/perch.png",
         "description":""
     },
     {
         "id":2,
         "name": "Forelle",
-        "img":"assets/img/fish.jpg",
+        "img":"assets/img/trout.png",
         "description":""
     },
     {
         "id": 3,
         "name": "Lachs",
-        "img":"assets/img/fish.jpg",
+        "img":"assets/img/salmon.png",
         "description":""
     },
     {
         "id": 4,
         "name": "Hecht",
-        "img":"assets/img/fish.jpg",
+        "img":"assets/img/fish_avatar.png",
         "description":""
     },
     {
         "id": 5,
         "name": "Karpfen",
-        "img":"assets/img/fish.jpg",
+        "img":"assets/img/carp.png",
         "description":""
     },
     {
         "id": 6,
         "name": "Wels",
-        "img":"assets/img/fish.jpg",
+        "img":"assets/img/fish_avatar.png",
+        "description":""
+    },
+    {
+        "id": 67,
+        "name": "Thunfisch",
+        "img":"assets/img/tuna.png",
         "description":""
     }
 ]

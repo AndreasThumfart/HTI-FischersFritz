@@ -22,3 +22,70 @@
 .profile-row .photo img{
     width:80px;
 }
+
+.catch-form-box{
+    border:1px solid black;
+}
+.location-search{
+    color:black;
+}
+.catch-header{
+    min-height: 60px;
+    margin-top:5px;
+    border-bottom: 1px solid black;
+}
+    .catch-header .icon{
+        width:40px;
+        height:40px;
+        margin-right:10px;
+    }
+    .catch-header a{
+        color:black;
+    }
+    .catch-header #fish-label{
+        flex:1 1 auto;
+        font-size:20px;
+        line-height: 36px;
+    }
+
+#toggle{
+    font-size:24px;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    width:80px;
+    margin:auto;
+}
+    #toggle svg{
+        margin:0;
+        padding:0;
+    }
+
+#fish-scan-label{
+    height:300px;
+    width:300px;
+    text-align: center;
+    
+}
+    #fish-scan-label svg{
+        text-align: center;
+    }
+.fish-scan{
+    height: 350px;
+}
+    .fish-scan #fish-image{
+        max-height: 100%;
+        width:auto;
+    }
+
+.map-fish-avatar{
+    height: 30px;
+    width:30px;
+}
+
+/* desktop screen */
+@media screen and (min-width: 1280px){
+    .catch-form-box{
+        width:700px;
+    }
+}

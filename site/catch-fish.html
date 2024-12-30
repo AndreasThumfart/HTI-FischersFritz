@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Fischers Fritz - Fang erfassen</title>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/custom.css" rel="stylesheet" />
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="js/map.js"></script>
+    </head>
+    <body>
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item">
+                    <a class="nav-link" id="navbarDropdown" href="javascript:history.back();" role="button" ><i class="fas fa-angle-left fa-fw"></i></a>
+                </li>
+            </ul>
+            <a class="navbar-brand ps-3" href="index.html">Fischers Fritz</a>
+        </nav>
+        <main role="main" class="container">
+            <h1 class="mt-4">Fang erfassen</h1>
+            <div class="row fish-scan d-flex align-items-center justify-content-center">
+                <label for="fish-scan" id="fish-scan-label" >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M149.1 64.8L138.7 96 64 96C28.7 96 0 124.7 0 160L0 416c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64l-74.7 0L362.9 64.8C356.4 45.2 338.1 32 317.4 32L194.6 32c-20.7 0-39 13.2-45.5 32.8zM256 192a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg>
+                    <p>Foto aufnehmen</p>
+                </label>
+                <img id="fish-image" style="display:none;" />
+                <input type="file" id="fish-scan" name="fish" style="display:none;" onchange="scanFish(this)" accept="image/png, image/jpeg" />
+                <div id="spinner" class="spinner-border text-primary" role="status" style="display: none;">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div class="row catch-form-box">
+                <form id="scan">
+                    <div class="form-group  catch-header">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <img id="fish-icon" class="icon col-xs-6" src="./assets/img/fish_avatar.png" alt=""/>
+                            </div>
+                            <input type="text" class="form-control" id="fish" style="display:none" />
+                            <p id="fish-label">Fisch</p>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Gewicht</label>
+                        <div class="col-sm-9">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="weight"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Länge</label>
+                        <div class="col-sm-9">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="length"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">cm</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="">
+                    <button type="button" class="btn btn-secondary" id="selectFish" disabled onclick="selectFish()">Übernehmen</button>
+                    <button type="button" class="btn btn-secondary" id="cancel" onclick="history.back()">Abbrechen</button>
+                </div>
+            </div>
+
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script>
+            $(document).ready(function() {
+                loadUserData("test@test.com");
+                loadFishData();
+
+                var fishValues = [];
+                for(var i=0;i<fish.length;i++){
+                    fishValues.push({label:fish[i].name, value:fish[i].id});
+                }
+                $("input#fish").autocomplete({
+                    source: fishValues
+                });
+
+            });
+        </script>
+    </body>
+</html>

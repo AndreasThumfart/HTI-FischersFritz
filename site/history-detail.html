@@ -29,12 +29,12 @@
             <h1 class="mt-4">History</h1>
             <div class="row">
                 <div class="history">
-                    <div class="tabs">
-                        <button data-filter="24h">24h</button>
-                        <button data-filter="1w">1 week</button>
-                        <button data-filter="1m">1 month</button>
-                        <button data-filter="1y">1 year</button>
-                        <button class="active" data-filter="total">Total</button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-secondary" data-filter="24h">24h</button>
+                        <button type="button" class="btn btn-secondary" data-filter="1w">1 week</button>
+                        <button type="button" class="btn btn-secondary" data-filter="1m">1 month</button>
+                        <button type="button" class="btn btn-secondary" data-filter="1y">1 year</button>
+                        <button type="button" class="btn btn-secondary active" data-filter="total">Total</button>
                     </div>
                     
                     <div id="map">
@@ -42,10 +42,7 @@
                     </div>
                     <!--AIzaSyC2kdFdCnCT51cVbPcbHRgvl7XFwmkPFTw-->
                     
-                    <script
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2kdFdCnCT51cVbPcbHRgvl7XFwmkPFTw&callback=initMap&v=weekly"
-                    defer
-                  ></script>
+                    
                     <!-- Fish Container -->
                     <div class="content" id="fishHistory">
                         <!-- Dynamically generated content will appear here -->
@@ -69,5 +66,9 @@
                 renderHistoryDetails(historyDiv,id);
             });
         </script>
+        <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2kdFdCnCT51cVbPcbHRgvl7XFwmkPFTw&callback=initMapCoordinates&v=weekly"
+        defer
+      ></script>
     </body>
 </html>

@@ -29,16 +29,19 @@
             <h1 class="mt-4">History</h1>
             <div class="row">
                 <div class="history">
-                    <div class="tabs">
-                        <button data-filter="24h">24h</button>
-                        <button data-filter="1w">1 week</button>
-                        <button data-filter="1m">1 month</button>
-                        <button data-filter="1y">1 year</button>
-                        <button class="active" data-filter="total">Total</button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-secondary" data-filter="24h">24h</button>
+                        <button type="button" class="btn btn-secondary" data-filter="1w">1 week</button>
+                        <button type="button" class="btn btn-secondary" data-filter="1m">1 month</button>
+                        <button type="button" class="btn btn-secondary" data-filter="1y">1 year</button>
+                        <button type="button" class="btn btn-secondary active" data-filter="total">Total</button>
                     </div>
                     
                     <!-- Fish Container -->
-                    <div class="content" id="fishHistory">
+                    <div class="content">
+                        <ul class="list-group" id="fishHistory">
+
+                        </ul>
                         <!-- Dynamically generated content will appear here -->
                     </div>                    
                 </div>
@@ -54,8 +57,8 @@
                 loadUserData("test@test.com");
                 loadFishData();
 
-                var historyDiv = $("#fishHistory").first();
-                renderHistory(historyDiv);
+                var historyList = $("#fishHistory").first();
+                renderHistory(historyList);
             });
         </script>
     </body>
