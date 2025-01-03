@@ -30,11 +30,20 @@
             <div class="row">
                 <div class="history">
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-secondary" data-filter="24h">24h</button>
-                        <button type="button" class="btn btn-secondary" data-filter="1w">1 week</button>
-                        <button type="button" class="btn btn-secondary" data-filter="1m">1 month</button>
-                        <button type="button" class="btn btn-secondary" data-filter="1y">1 year</button>
-                        <button type="button" class="btn btn-secondary active" data-filter="total">Total</button>
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradiod" autocomplete="off" onclick="renderHistoryFiltered($('#fishHistory').first(),'d')">
+                        <label class="btn btn-secondary" for="btnradiod">1 day</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradiow" autocomplete="off" onclick="renderHistoryFiltered($('#fishHistory').first(),'w')">
+                        <label class="btn btn-secondary" for="btnradiow">1 week</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradiom" autocomplete="off" onclick="renderHistoryFiltered($('#fishHistory').first(),'m')">
+                        <label class="btn btn-secondary" for="btnradiom">1 month</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradioy" autocomplete="off" onclick="renderHistoryFiltered($('#fishHistory').first(),'y')">
+                        <label class="btn btn-secondary" for="btnradioy">1 year</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradiot" autocomplete="off" onclick="renderHistory($('#fishHistory').first())" checked>
+                        <label class="btn btn-secondary" for="btnradiot">Total</label>
                     </div>
                     
                     <!-- Fish Container -->

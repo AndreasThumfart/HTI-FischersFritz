@@ -76,16 +76,20 @@ function renderProfileData(infoDiv){
 
 function renderProfileHistory(historyDiv){
     var userHistory = user.history;
+    historyDiv.empty();
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<div class=\"history-item\"><a href=\"history.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a></div>");
+            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ Date(userHistory[i].date).toString() +"</p></li>");
+
         }
     }
 }
-
-function renderHistory(historyDiv){
-    var userHistory = user.history;
+function renderProfileHistoryFiltered(historyDiv,filter){
+    var filterDate = getFilterDate(filter);
+    historyDiv.empty();
+    var userHistory = user.history.filter(h => (new Date(h.date)).getTime() >= filterDate);
+    historyDiv.empty();
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
@@ -93,6 +97,51 @@ function renderHistory(historyDiv){
         }
     }
 }
+
+function renderHistory(historyDiv){
+    var userHistory = user.history;
+    historyDiv.empty();
+    for(var i = 0; i<userHistory.length;i++){
+        var f = fish.find(f => f.id === userHistory[i].fish);
+        if(f){
+            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ Date(userHistory[i].date).toString() +"</p></li>");
+        }
+    }
+}
+
+function renderHistoryFiltered(historyDiv,filter){
+    var filterDate = getFilterDate(filter);
+    var userHistory = user.history.filter(h => (new Date(h.date)).getTime() >= filterDate);
+    historyDiv.empty();
+    for(var i = 0; i<userHistory.length;i++){
+        var f = fish.find(f => f.id === userHistory[i].fish);
+        if(f){
+            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ Date(userHistory[i].date).toString() +"</p></li>");
+        }
+    }
+}
+
+function getFilterDate(filter){
+    var filterDate = new Date();
+    switch(filter){
+        case "d":
+            filterDate.setDate(filterDate.getDate() -1);
+            break;
+        case "w":
+            filterDate.setDate(filterDate.getDate() -7);
+            break;
+        case "m":
+            filterDate.setMonth(filterDate.getMonth() -1);
+            break;
+        case "y":
+            filterDate.setFullYear(filterDate.getFullYear() -1);
+            break;
+        default:
+            break;
+    }
+    return filterDate;
+}
+
 
 function renderHistoryDetails(historyDiv,id){
     var item = user.history.find(i => i.id === id);
