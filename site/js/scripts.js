@@ -71,22 +71,31 @@ function loadFishData() {
 }
 
 function renderProfileData(infoDiv){
-    infoDiv.append("<p>" + user.name + "</p>");
-    infoDiv.append("<p>" + Date(user.registration).toString() + "</p>");
+    infoDiv.append("<h3>" + user.name + "</h3>");
+    // Konvertiere das Registrierungsdatum in ein gekürztes Format
+    const formattedDate = new Date(user.registration).toLocaleDateString("de-DE", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });
+
+    infoDiv.append("<h5>Mitglied seit: " + formattedDate + "</h5>");
 }
 
-
-function renderProfileHistory(historyDiv){
+/*Alte Render Funktion ohne Gruppierung */
+/*function renderProfileHistory(historyDiv){
     var userHistory = user.history;
     historyDiv.empty();
+    const groupedFish = {};
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></li>");
+            historyDiv.append("<div class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></div>");
 
         }
     }
 }
+
 function renderProfileHistoryFiltered(historyDiv,filter){
     var filterDate = getFilterDate(filter);
     historyDiv.empty();
@@ -95,11 +104,106 @@ function renderProfileHistoryFiltered(historyDiv,filter){
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></li>");
+            historyDiv.append("<div class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></div>");
         }
         
     }
+}*/
+
+/*
+ Start: Phillip Code Rendern und Gruppieren
+ */
+ function renderProfileHistory(historyDiv) {
+    // Zuerst den Inhalt des Containers leeren
+    historyDiv.empty();
+
+    // Gruppenobjekt für Fische erstellen
+    const groupedFish = {};
+
+    // Benutzerhistorie durchlaufen
+    user.history.forEach(entry => {
+        const fishEntry = fish.find(f => f.id === entry.fish);
+        if (fishEntry) {
+            if (!groupedFish[fishEntry.name]) {
+                groupedFish[fishEntry.name] = {
+                    count: 0,
+                    fish: fishEntry
+                };
+            }
+            groupedFish[fishEntry.name].count++;
+        }
+    });
+
+    // Wrapper für horizontale Darstellung
+    const rowDiv = $('<div class="fish-row d-flex flex-wrap justify-content-start"></div>');
+
+    // Gruppierte Fische rendern
+    for (const fishName in groupedFish) {
+        const fishData = groupedFish[fishName];
+        const itemHTML = `
+            <div class="fish-card text-center m-2" style="width: 150px;">
+                <h4>${fishData.fish.name}</h4>
+                <img src="${fishData.fish.img}" alt="${fishData.fish.name}" class="fish-image img-fluid" style="max-width: 100px; height: auto; margin-bottom:0px;">
+                <h4>x ${fishData.count}</h4>
+            </div>
+        `;
+        rowDiv.append(itemHTML);
+    }
+
+    // Elemente in das Haupt-Container-Div einfügen
+    historyDiv.append(rowDiv);
 }
+
+function renderProfileHistoryFiltered(historyDiv, filter) {
+    // Berechne das Startdatum für den Filter
+    const filterDate = getFilterDate(filter);
+    historyDiv.empty();
+
+    // Gruppenobjekt für Fische erstellen
+    const groupedFish = {};
+
+    // Benutzerhistorie filtern und durchlaufen
+    user.history.forEach(entry => {
+        const entryDate = new Date(entry.date);
+        if (entryDate >= filterDate) {
+            const fishEntry = fish.find(f => f.id === entry.fish);
+            if (fishEntry) {
+                if (!groupedFish[fishEntry.name]) {
+                    groupedFish[fishEntry.name] = {
+                        count: 0,
+                        fish: fishEntry
+                    };
+                }
+                groupedFish[fishEntry.name].count++;
+            }
+        }
+    });
+
+    // Wrapper für horizontale Darstellung
+    const rowDiv = $('<div class="fish-row d-flex flex-wrap justify-content-start"></div>');
+
+    // Gruppierte Fische rendern
+    for (const fishName in groupedFish) {
+        const fishData = groupedFish[fishName];
+        const itemHTML = `
+            <div class="fish-card text-center m-2" style="width: 150px;">
+                <h4>${fishData.fish.name}</h4>
+                <img src="${fishData.fish.img}" alt="${fishData.fish.name}" class="fish-image img-fluid" style="max-width: 100px; height: auto;">
+                <h5>x ${fishData.count}</h5>
+            </div>
+        `;
+        rowDiv.append(itemHTML);
+    }
+
+    // Elemente in das Haupt-Container-Div einfügen
+    historyDiv.append(rowDiv);
+}
+
+
+
+/*
+Ende: Phillip Code Rendern und Gruppieren
+*/    
 
 function renderHistory(historyDiv){
     var userHistory = user.history;
@@ -107,7 +211,7 @@ function renderHistory(historyDiv){
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></li>");
+            historyDiv.append("<div class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></div>");
         }
     }
 }
@@ -119,7 +223,7 @@ function renderHistoryFiltered(historyDiv,filter){
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></li>");
+            historyDiv.append("<div class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></div>");
         }
     }
 }

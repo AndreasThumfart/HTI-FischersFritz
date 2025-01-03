@@ -17,7 +17,7 @@
         <script src="js/map.js"></script>
     </head>
     <body>
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark sticky-top">
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item">
                     <a class="nav-link" id="navbarDropdown" href="javascript:history.back();" role="button" ><i class="fas fa-angle-left fa-fw"></i></a>
@@ -25,18 +25,17 @@
             </ul>
             <a class="navbar-brand ps-3" href="index.html">Fischers Fritz</a>
         </nav>
-        <main role="main" class="container">
-            <h1 class="mt-4">Profile</h1>
-            <div class="row profile-row">
-                <div class="photo">
-                    <img src="assets/img/avatar.png" />
+        <main role="main" class="container-fluid">
+            <div class="profile-row profile-header">
+                <div class="avatar">
+                    <img src="assets/img/avatar-3814049_1280.png" alt="Profile Avatar"/>
                 </div>
                 <div class="information">
                     
                 </div>
             </div>
-            <div class="row">
-                <a href="history.html"><h2>History</h2></a>
+            <div class="row profile-container">
+                    <h2>History</h2></a>
                 <div class="history">
                     <div class="btn-group" role="group">
                         <input type="radio" class="btn-check" name="btnradio" id="btnradiod" autocomplete="off" onclick="renderProfileHistoryFiltered($('#fishHistory').first(),'d')">
@@ -51,31 +50,43 @@
                         <input type="radio" class="btn-check" name="btnradio" id="btnradioy" autocomplete="off" onclick="renderProfileHistoryFiltered($('#fishHistory').first(),'y')">
                         <label class="btn btn-secondary" for="btnradioy">1 year</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradiot" autocomplete="off" onclick="renderProfileHistory($('#fishHistory').first())" checked>
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradiot" autocomplete="off" onclick="renderProfileHistory($('#fishHistory').first())"checked>
                         <label class="btn btn-secondary" for="btnradiot">Total</label>
                     </div>
                     
                     <!-- Fish Container -->
                     <div class="content">
-                        <ul class="list-group" id="fishHistory">
+                        <div class="list-group" id="fishHistory">
 
-                        </ul>
+                        </div>
                     </div>                    
                 </div>
             </div>
-            <div class="row">
+            <div class="row profile-container">
                 <h2>Profile</h2>
-                <div>
-                    
+                <div class="content">
+                    <h5>Nickname:</h5>
+                    <h5>Username:</h5>
+                    <h5>Account:</h5>
+                    <div class="profile-qr">
+                        <img src="assets/img/profile-qr.png" alt="QR Code" />
+                     </div>  
                 </div>
             </div>
-            <div class="row">
+            <div class="row profile-container">
                 <h2>About</h2>
-                <div>
+                <div class="content">
                     
                 </div>
             </div>
         </main>
+        <footer class="sb-bottomnav navbar navbar-expand navbar-dark bg-dark">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">© HTI Interaction Firat, Gunkel, Sucic & Thurmfart</a>
+                </li>
+            </ul>
+        </footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script>
