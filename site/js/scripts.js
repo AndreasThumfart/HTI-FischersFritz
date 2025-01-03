@@ -35,12 +35,14 @@ function getParameterByName(name) {
 function loadUserData(username) {
     if (sessionStorage.getItem("user")){
         user = JSON.parse(sessionStorage.getItem('user'));
+        user.history = sortHistory(user.history);
     }
     else{
         $.getJSON('data/userdata.json', function(data) {
             console.log(data);
             user = data.find(user => user.username === username);
             if(user){
+                user.history = sortHistory(user.history);
                 sessionStorage.setItem('user', JSON.stringify(user));
             }
             else {
@@ -80,7 +82,7 @@ function renderProfileHistory(historyDiv){
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ Date(userHistory[i].date).toString() +"</p></li>");
+            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></li>");
 
         }
     }
@@ -93,8 +95,9 @@ function renderProfileHistoryFiltered(historyDiv,filter){
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ Date(userHistory[i].date).toString() +"</p></li>");
+            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></li>");
         }
+        
     }
 }
 
@@ -104,7 +107,7 @@ function renderHistory(historyDiv){
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ Date(userHistory[i].date).toString() +"</p></li>");
+            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></li>");
         }
     }
 }
@@ -116,7 +119,7 @@ function renderHistoryFiltered(historyDiv,filter){
     for(var i = 0; i<userHistory.length;i++){
         var f = fish.find(f => f.id === userHistory[i].fish);
         if(f){
-            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ Date(userHistory[i].date).toString() +"</p></li>");
+            historyDiv.append("<li class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></li>");
         }
     }
 }
@@ -153,21 +156,27 @@ function renderHistoryDetails(historyDiv,id){
     }
 }
 
+function sortHistory(history){
+    history.sort(function(a,b){
+        return new Date(b.date) - new Date(a.date);
+      });
+    return history;
+}
 
 function saveCatch(){
     //add catch to user history
 
     var item = {};
     if($("input#fishid").val()){
-        item.fish = $("input#fishid").val();
+        item.fish =  parseInt($("input#fishid").val());
     }
     else{
         var f= fish.find(f => f.name = $("input#fish").val());
-        item.fish = f.id;
+        item.fish = parseInt(f.id);
     }
     
-    item.weigth = $("input#weight").val();
-    item.length = $("input#length").val();
+    item.weigth = parseFloat($("input#weight").val());
+    item.length = parseFloat($("input#length").val());
     item.notes = $("input#notes").val();
     item.location = $("input#location").val();
     item.date = $("#date").val() + "T" +$("#time").val() + ":00";
@@ -175,7 +184,7 @@ function saveCatch(){
     item.bait = $("select#bait").val();
     item.technique = $("input#technique").val();
     item.weather = $("input#weather").val();
-    item.waterTemp = $("input#watertemp").val();
+    item.waterTemp =  parseFloat($("input#watertemp").val());
 
     user.history.push(item);
     sessionStorage.setItem('user', JSON.stringify(user));
