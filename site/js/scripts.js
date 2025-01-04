@@ -262,7 +262,7 @@ Ende: Neue Rendern und Gruppieren nach Fischart in profile.html
                             <img src="${fishEntry.img}" alt="${fishEntry.name}" class="fish-image">
                             <div>
                                 <h4>${fishEntry.name} um ${new Date(entry.date).toLocaleTimeString("de-DE")}</h4>
-                                <h4>${fishEntry.location}</h4>
+                                <h4>${entry.location}</h4>
                             </div>
                         </div>
                     </a>
@@ -412,8 +412,8 @@ function getFilterDate(filter){
     return filterDate;
 }
 
-
-function renderHistoryDetails(historyDiv,id){
+/*----------------------------------------------------*/
+/*function renderHistoryDetails(historyDiv,id){
     var item = user.history.find(i => i.id === id);
     if(item){
         var f = fish.find(f => f.id === item.fish);
@@ -422,6 +422,89 @@ function renderHistoryDetails(historyDiv,id){
         }
     }
 }
+*/
+
+function renderHistoryDetails(historyDiv, id) {
+    console.log("Rendering history details...");
+
+    // Sicherstellen, dass das Ziel-Element existiert
+    if (historyDiv.length === 0) {
+        console.error("Target element for rendering (#fishHistory) not found in DOM.");
+        return;
+    }
+
+    // Historie leeren
+    historyDiv.empty();
+
+    // Erstelle das Akkordeon-Container-Element
+    const accordion = $('<div class="accordion" id="accordionExample"></div>');
+
+    // Einzelne Fische aus der Historie durchlaufen
+    user.history.forEach((entry, index) => {
+        const fishEntry = fish.find(f => f.id === entry.fish);
+        if (fishEntry) {
+            console.log("Processing Fish Entry:", fishEntry);
+
+            const isDefaultOpen = id === entry.id; // Akkordeon-Element standardmäßig offen, falls ID übereinstimmt
+            const collapseClass = isDefaultOpen ? "show" : ""; // Offen, wenn ID übereinstimmt
+            const expanded = isDefaultOpen ? "true" : "false"; // aria-expanded entsprechend setzen
+
+            // Akkordeon-HTML generieren
+            const accordionItem = `
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading${index}">
+                        <button class="accordion-button ${isDefaultOpen ? "" : "collapsed"}" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#collapse${index}" 
+                                aria-expanded="${expanded}" 
+                                aria-controls="collapse${index}">
+                            <div class="d-flex align-items-center">
+                                <img src="${fishEntry.img}" alt="${fishEntry.name}" class="fish-image me-3"> 
+                                <div>
+                                    <h5 class="mb-0">${fishEntry.name} am ${new Date(entry.date).toLocaleDateString("de-DE")} um ${new Date(entry.date).toLocaleTimeString("de-DE")}</h5>
+                                    <h5 class="mb-0">${entry.location || "Unbekannt"}</h5>
+                                </div>
+                            </div>
+                        </button>
+                    </h2>
+                    <div id="collapse${index}" 
+                         class="accordion-collapse collapse ${collapseClass}" 
+                         aria-labelledby="heading${index}" 
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>Details:</strong>
+                            <ul class="list-unstyled">
+                                <li><strong>Gewässer/Standort:</strong> ${entry.location || "Unbekannt"}</li>
+                                <li><strong>Gewicht:</strong> ${entry.weight || "N/A"} kg</li>
+                                <li><strong>Länge:</strong> ${entry.length || "N/A"} cm</li>
+                                <li><strong>Köder:</strong> ${entry.bait || "N/A"}</li>
+                                <li><strong>Technik:</strong> ${entry.technique || "N/A"}</li>
+                                <li><strong>Wetter:</strong> ${entry.weather || "N/A"}</li>
+                                <li><strong>Wassertemperatur:</strong> ${entry.waterTemp || "N/A"}°C</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            console.log("Generated Accordion Item HTML:", accordionItem);
+
+            // Akkordeon-Eintrag zum Container hinzufügen
+            accordion.append(accordionItem);
+        } else {
+            console.warn("Fish not found for entry:", entry);
+        }
+    });
+
+    // Füge das Akkordeon in das Ziel-Element ein
+    historyDiv.append(accordion);
+
+    console.log("Rendering history details complete.");
+}
+
+
+
+/*---------------------------------------------------*/
 
 function sortHistory(history){
     history.sort(function(a,b){
