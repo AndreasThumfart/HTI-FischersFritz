@@ -28,54 +28,30 @@
         <main role="main" class="container">
             <h1 class="mt-4">Fang erfassen</h1>
             <div class="row">
-                <div id="map">
-                </div>                
-                <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2kdFdCnCT51cVbPcbHRgvl7XFwmkPFTw&callback=initMap&v=weekly"
-                defer
-              ></script>
-            </div>
-            <div class="row" id="toggle">
-                <i class="fa-solid fa-angles-up"></i>
-            </div>
-            <div class="row catch-form-box" id="form-panel">
-                <form id="catch">
-                    <div class="form-group  catch-header">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <img id="fish-icon" class="icon col-xs-6" src="assets/img/fish_avatar.png" alt=""/>
-                            </div>
-                            <label id="fish-label" class="col-xs-6" style="display:none">Fisch</label>
-                            <input type="text" class="form-control" id="fish" />
-                            <input type="text" id="fishid" hidden />
-                            <div class="input-group-append">
-                                <!-- <button class="btn btn-outline-secondary" type="button" id="button-search" onclick="searchFish()"><i class="fa-solid fa-magnifying-glass"></i></button> -->
-                                <button class="btn btn-outline-secondary" type="button" id="button-scan" onclick="window.location='catch-fish.html'"><i class="fa-solid fa-camera"></i></button>
-                            </div>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Launch static backdrop modal
+                </button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        ...
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Understood</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        Launch static backdrop modal
-                      </button>
-                      
-                      <!-- Modal -->
-                      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                              ...
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Understood</button>
-                            </div>
-                          </div>
-                        </div>
                     </div>
+                </div>
+            </div>
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label">Gewässer/Standort</label>
                         <div class="col-sm-9">
