@@ -139,19 +139,6 @@ Profile-Profile
     margin: 0 auto; /* Zentriert den QR-Code */
     display: block; /* Block-Level-Element für zentrierte Ausrichtung */
 }
-
-@media (max-width: 768px) {
-    .profile-qr img {
-        max-width: 250px; /* Kleinere Größe auf kleineren Bildschirmen */
-    }
-}
-
-@media (max-width: 480px) {
-    .profile-qr img {
-        max-width: 200px; /* Noch kleinere Größe auf sehr kleinen Bildschirmen */
-    }
-}
-
 /*
 Button Gruppe
 */
@@ -163,7 +150,51 @@ Button Gruppe
     
 }
 
-/**/
+/*History*/
+.content-history {
+    min-height: 300px;
+    background-color: white; /* Weißer Hintergrund */
+    width: 100%; /* Volle Breite */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Schatten für visuelle Trennung */
+}
+.date-group {
+    /*margin-bottom: 20px;*/
+    padding: 0px;
+    background-color: #f9f9f9;
+   /* border: 1px solid #ddd;*/
+    border-radius: 0px;
+}
+
+.date-group h4 {
+    margin: 5px;
+    color: #333;
+    font-size: 18px;
+}
+
+.fish-list {
+    list-style: none;
+}
+
+.fish-list .history-item {
+    border-bottom: 1px solid rgb(176, 176, 176);
+    text-decoration: none; /* Unterstrich entfernen */
+    color: inherit; /* Textfarbe beibehalten */
+}
+
+.fish-image {
+    width: 150px;
+    height: 150px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Stil für den Text und die Uhrzeit */
+.fish-details {
+    display: flex; /* Flexbox-Layout */
+    align-items: center; /* Vertikale Ausrichtung */
+    gap: 10px; /* Abstand zwischen Bild und Text */
+}
 
 /*-------------------*/
 
@@ -250,6 +281,23 @@ Button Gruppe
 .map-fish-avatar{
     height: 30px;
     width:30px;
+}
+
+
+
+
+/*-----Media Queries-----*/
+
+@media (max-width: 768px) {
+    .profile-qr img {
+        max-width: 250px; /* Kleinere Größe auf kleineren Bildschirmen */
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-qr img {
+        max-width: 200px; /* Noch kleinere Größe auf sehr kleinen Bildschirmen */
+    }
 }
 
 /* desktop screen */

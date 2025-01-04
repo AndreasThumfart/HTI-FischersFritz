@@ -82,7 +82,7 @@ function renderProfileData(infoDiv){
     infoDiv.append("<h5>Mitglied seit: " + formattedDate + "</h5>");
 }
 
-/*Alte Render Funktion ohne Gruppierung */
+/*Alte Render Funktion ohne Gruppierung für profile.html */
 /*function renderProfileHistory(historyDiv){
     var userHistory = user.history;
     historyDiv.empty();
@@ -111,7 +111,7 @@ function renderProfileHistoryFiltered(historyDiv,filter){
 }*/
 
 /*
- Start: Phillip Code Rendern und Gruppieren
+ Start:Neue Rendern und Gruppieren nach Fischart in profile.html
  */
  function renderProfileHistory(historyDiv) {
     // Zuerst den Inhalt des Containers leeren
@@ -188,11 +188,13 @@ function renderProfileHistoryFiltered(historyDiv, filter) {
     for (const fishName in groupedFish) {
         const fishData = groupedFish[fishName];
         const itemHTML = `
+            <a href="history.html" class="fish-card-link text-center m-2">
             <div class="fish-card text-center m-2" style="width: 150px;">
                 <h4>${fishData.fish.name}</h4>
-                <img src="${fishData.fish.img}" alt="${fishData.fish.name}" class="fish-image img-fluid" style="max-width: 100px; height: auto;">
-                <h5>x ${fishData.count}</h5>
+                <img src="${fishData.fish.img}" alt="${fishData.fish.name}" class="fish-image img-fluid" style="max-width: 100px; height: auto; margin-bottom:0px;">
+                <h4>x ${fishData.count}</h4>
             </div>
+        </a>
         `;
         rowDiv.append(itemHTML);
     }
@@ -200,14 +202,172 @@ function renderProfileHistoryFiltered(historyDiv, filter) {
     // Elemente in das Haupt-Container-Div einfügen
     historyDiv.append(rowDiv);
 }
-
-
+/*
+Ende: Neue Rendern und Gruppieren nach Fischart in profile.html
+*/
 
 /*
-Ende: Phillip Code Rendern und Gruppieren
-*/    
+ Start:Neue Rendern und Gruppieren nach Datum in history.html
+ */
+ function renderHistory(historyDiv) {
+    console.log("Rendering full history...");
 
-function renderHistory(historyDiv){
+    // Sicherstellen, dass das Ziel-Element existiert
+    if (historyDiv.length === 0) {
+        console.error("Target element for rendering (#fishHistory) not found in DOM.");
+        return;
+    }
+    // Historie leeren
+    historyDiv.empty();
+    // Gruppiere die Einträge nach Datum
+    const groupedHistory = user.history.reduce((groups, entry) => {
+        const dateKey = new Date(entry.date).toLocaleDateString("de-DE", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+        });
+        console.log("Processing entry:", entry, "Date Key:", dateKey);
+        if (!groups[dateKey]) {
+            groups[dateKey] = [];
+        }
+        groups[dateKey].push(entry);
+        return groups;
+    }, {});
+
+    console.log("Grouped History:", groupedHistory);
+    
+    // Rendere die gruppierten Einträge
+    for (const date in groupedHistory) {
+        console.log("Processing Date Group:", date);
+
+        const dateContainer = `
+            <div class="date-group">
+                <h4>${date}</h4>
+                <div class="fish-list"></div>
+            </div>
+        `;
+        console.log("Generated Date Container HTML:", dateContainer);
+
+        const dateElement = $(dateContainer);
+        const fishList = dateElement.find(".fish-list");
+
+        groupedHistory[date].forEach(entry => {
+            const fishEntry = fish.find(f => f.id === entry.fish);
+            if (fishEntry) {
+                console.log("Processing Fish Entry:", fishEntry);
+
+                const fishItem = `
+                   <a href="history-detail.html?id=${entry.id}" class="history-item">
+                        <div class="list-group-item history-item fish-details">
+                            <img src="${fishEntry.img}" alt="${fishEntry.name}" class="fish-image">
+                            <div>
+                                <h4>${fishEntry.name} um ${new Date(entry.date).toLocaleTimeString("de-DE")}</h4>
+                                <h4>${fishEntry.location}</h4>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                console.log("Generated Fish Item HTML:", fishItem);
+
+                fishList.append(fishItem);
+            } else {
+                console.warn("Fish not found for entry:", entry);
+            }
+        });
+
+        historyDiv.append(dateElement);
+    }
+
+    console.log("Rendering complete.");
+}
+
+function renderHistoryFiltered(historyDiv, filter) {
+    console.log("Rendering filtered history with filter:", filter);
+
+    // Sicherstellen, dass das Ziel-Element existiert
+    if (historyDiv.length === 0) {
+        console.error("Target element for rendering (#fishHistory) not found in DOM.");
+        return;
+    }
+
+    // Filterdatum berechnen
+    const filterDate = getFilterDate(filter);
+    console.log("Filter Date:", filterDate);
+
+    // Einträge nach Filter filtern
+    const filteredHistory = user.history.filter(h => new Date(h.date).getTime() >= filterDate);
+    console.log("Filtered History:", filteredHistory);
+
+    historyDiv.empty();
+
+    // Gruppiere die gefilterten Einträge nach Datum
+    const groupedHistory = filteredHistory.reduce((groups, entry) => {
+        const dateKey = new Date(entry.date).toLocaleDateString("de-DE", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+        });
+        console.log("Processing entry:", entry, "Date Key:", dateKey);
+        if (!groups[dateKey]) {
+            groups[dateKey] = [];
+        }
+        groups[dateKey].push(entry);
+        return groups;
+    }, {});
+
+    console.log("Grouped Filtered History:", groupedHistory);
+
+    // Rendere die gruppierten Einträge
+    for (const date in groupedHistory) {
+        console.log("Processing Date Group:", date);
+
+        const dateContainer = `
+            <div class="date-group">
+                <h4>${date}</h4>
+                <div class="fish-list"></div>
+            </div>
+        `;
+        console.log("Generated Date Container HTML:", dateContainer);
+
+        const dateElement = $(dateContainer);
+        const fishList = dateElement.find(".fish-list");
+
+        groupedHistory[date].forEach(entry => {
+            const fishEntry = fish.find(f => f.id === entry.fish);
+            if (fishEntry) {
+                console.log("Processing Fish Entry:", fishEntry);
+
+                const fishItem = ` 
+                    <a href="history-detail.html?id=${entry.id}" class="history-item">
+                        <div class="list-group-item history-item fish-details">
+                            <img src="${fishEntry.img}" alt="${fishEntry.name}" class="fish-image">
+                            <div>
+                                <h4>${fishEntry.name} um ${new Date(entry.date).toLocaleTimeString("de-DE")}</h4>
+                                <h4>${fishEntry.location}</h4>
+                            </div>
+                        </div>
+                    </a>
+                `;
+                console.log("Generated Fish Item HTML:", fishItem);
+
+                fishList.append(fishItem);
+            } else {
+                console.warn("Fish not found for entry:", entry);
+            }
+        });
+
+        historyDiv.append(dateElement);
+    }
+
+    console.log("Rendering filtered history complete.");
+}
+ /*
+ Ende:Neue Rendern und Gruppieren nach Datum in history.html
+ */
+
+/*Alte Render Funktion ohne Gruppierung für history.html*/
+
+/*function renderHistory(historyDiv){
     var userHistory = user.history;
     historyDiv.empty();
     for(var i = 0; i<userHistory.length;i++){
@@ -217,8 +377,9 @@ function renderHistory(historyDiv){
         }
     }
 }
+*/
 
-function renderHistoryFiltered(historyDiv,filter){
+/*function renderHistoryFiltered(historyDiv,filter){
     var filterDate = getFilterDate(filter);
     var userHistory = user.history.filter(h => (new Date(h.date)).getTime() >= filterDate);
     historyDiv.empty();
@@ -229,7 +390,7 @@ function renderHistoryFiltered(historyDiv,filter){
         }
     }
 }
-
+*/
 function getFilterDate(filter){
     var filterDate = new Date();
     switch(filter){
