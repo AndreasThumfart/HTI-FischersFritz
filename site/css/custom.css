@@ -7,10 +7,10 @@ Profil-Layout: Boxen, Abschnitte
 */
 
 #navbarDropdown{
-        display: flex;
-        justify-content: center; /* Zentrieren horizontal */
-        align-items: center;    /* Zentrieren vertikal */
-        height: 100px;          /* Beispielhöhe des Containers */
+    display: flex;
+    justify-content: center; /* Zentrieren horizontal */
+    align-items: center;    /* Zentrieren vertikal */
+    height: 100px;          /* Beispielhöhe des Containers */
       
 }
 .svg-inline--fa {
@@ -59,10 +59,26 @@ Profile-History
 .fish-row {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: flex-start;
 }
+.fish-card-link {
+    text-decoration: none; /* Unterstrich entfernen */
+    color: inherit; /* Textfarbe beibehalten */
+    display: inline-block; /* Block-Level-Link für die gesamte Karte */
+}
+.fish-card {
+    border: 1px solid #ddd; /* Rahmen für die Karte */
+    border-radius: 8px; /* Abgerundete Ecken */
+    padding: 20px; /* Innenabstand */
+    text-align: center; /* Zentrierter Inhalt */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Schatten für moderne Optik */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animation bei Hover */
+ }
 
+.fish-card:hover {
+    transform: scale(1.02); /* Vergrößerung bei Hover */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); /* Stärkerer Schatten bei Hover */
+}
 .fish-card img {
     max-width: 100%;
     height: auto;
@@ -74,6 +90,7 @@ Profile-History
 }
 
 .content {
+    min-height: 300px;
     background-color: white; /* Weißer Hintergrund */
     width: 100%; /* Volle Breite */
     padding: 20px; /* Innenabstand */
@@ -142,7 +159,8 @@ Button Gruppe
     display: flex; /* Flexbox aktivieren */
     justify-content: center; /* Inhalte horizontal zentrieren */
     margin: 0 auto; /* Sicherstellen, dass die Gruppe im Container zentriert bleibt */
-    padding: 10px 50px;
+    padding: 0px 50px 15px 50px; /* Optional: Innenabstand für die Gruppe */
+    
 }
 
 /**/
@@ -303,6 +321,88 @@ Button Gruppe
             flex: 0 0 auto; /* Feste Breite, keine Skalierung */
             width: 80px; /* Feste Breite für die Fischkarten */
             padding: 5px; /* Weniger Innenabstand */
+            text-align: center; /* Inhalt zentrieren */
+        }
+    
+        .fish-card img {
+            max-width: 60px; /* Kleinere Bilder */
+            height: auto;
+            margin-bottom: 5px;
+        }
+    
+        /* Button-Gruppe */
+        .btn-group {
+            display: flex;
+            justify-content: center; /* Buttons zentrieren */
+            margin-bottom: 10px; /* Abstand nach unten */
+        }
+    
+        .btn-group .btn {
+            font-size: 0.8rem; /* Kleinere Schrift */
+            padding: 5px 8px; /* Weniger Abstand */
+        }
+    
+}
+@media (max-width: 412px) {
+    /* Navbar verkleinern */
+    .navbar {
+        font-size: 0.9rem; /* Kleinere Schriftgröße */
+        padding: 10px; /* Weniger Innenabstand */
+    }
+
+    /* Button-Gruppe verkleinern */
+    .btn-group .btn {
+        font-size: 0.8rem; /* Kleinere Schrift */
+        padding: 5px 10px; /* Weniger Abstand */
+    }
+
+    /* Fischkarten verkleinern */
+    .fish-card {
+        width: 40px; /* Kleinere Kartenbreite */
+        padding: 0px; /* Weniger Innenabstand */
+    }
+
+    .fish-card img {
+        max-width: 10px; /* Kleinere Bilder */
+        height: auto;
+        margin-bottom: 5px;
+    }
+
+    /* Profile-Header verkleinern */
+    .profile-header {
+        font-size: 0.9rem; /* Kleinere Schriftgröße */
+        padding: 10px; /* Weniger Abstand */
+    }
+
+    /* History-Titel und Buttons zentrieren */
+    .history {
+        text-align: center; /* Zentriert die Buttons */
+    }
+
+    /* Abstände optimieren */
+    .history-item {
+        margin-bottom: 10px; /* Weniger Abstand zwischen den Einträgen */
+    }
+
+    /* Footer verkleinern */
+    footer {
+        font-size: 0.8rem; /* Kleinere Schriftgröße */
+        padding: 5px 10px;
+    }
+
+        /* Fisch-Container (Row) */
+        .fish-row {
+            display: flex; /* Flexbox aktivieren */
+            flex-wrap: nowrap; /* Zeilenumbruch verhindern */
+            justify-content: flex-start; /* Elemente linksbündig anzeigen */
+            overflow-x: auto; /* Horizontal scrollen erlauben, falls nicht genug Platz */
+            gap: 5px; /* Abstand zwischen den Fischen */
+        }
+    
+        /* Fischkarten (Items) */
+        .fish-card {
+            flex: 0 0 auto; /* Feste Breite, keine Skalierung */
+            width: 80px; /* Feste Breite für die Fischkarten */
             text-align: center; /* Inhalt zentrieren */
         }
     

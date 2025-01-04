@@ -141,11 +141,13 @@ function renderProfileHistoryFiltered(historyDiv,filter){
     for (const fishName in groupedFish) {
         const fishData = groupedFish[fishName];
         const itemHTML = `
+        <a href="history.html" class="fish-card-link text-center m-2">
             <div class="fish-card text-center m-2" style="width: 150px;">
                 <h4>${fishData.fish.name}</h4>
                 <img src="${fishData.fish.img}" alt="${fishData.fish.name}" class="fish-image img-fluid" style="max-width: 100px; height: auto; margin-bottom:0px;">
                 <h4>x ${fishData.count}</h4>
             </div>
+        </a>
         `;
         rowDiv.append(itemHTML);
     }
