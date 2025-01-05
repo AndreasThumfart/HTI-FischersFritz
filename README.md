@@ -66,7 +66,7 @@ Projekt klonen:
 
 bash
 1) Code kopieren
-    git clone https://github.com/<Benutzername>/fischers-fritz.git
+    git clone https://github.com/<'Benutzername'>/fischers-fritz.git
     cd fischers-fritz
 
 2) Abhängigkeiten installieren: Es werden keine zusätzlichen Pakete benötigt, da Bootstrap und jQuery über CDN eingebunden sind.
