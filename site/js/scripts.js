@@ -82,34 +82,6 @@ function renderProfileData(infoDiv){
     infoDiv.append("<h5>Mitglied seit: " + formattedDate + "</h5>");
 }
 
-/*Alte Render Funktion ohne Gruppierung für profile.html */
-/*function renderProfileHistory(historyDiv){
-    var userHistory = user.history;
-    historyDiv.empty();
-    const groupedFish = {};
-    for(var i = 0; i<userHistory.length;i++){
-        var f = fish.find(f => f.id === userHistory[i].fish);
-        if(f){
-            historyDiv.append("<div class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></div>");
-
-        }
-    }
-}
-
-function renderProfileHistoryFiltered(historyDiv,filter){
-    var filterDate = getFilterDate(filter);
-    historyDiv.empty();
-    var userHistory = user.history.filter(h => (new Date(h.date)).getTime() >= filterDate);
-    historyDiv.empty();
-    for(var i = 0; i<userHistory.length;i++){
-        var f = fish.find(f => f.id === userHistory[i].fish);
-        if(f){
-            historyDiv.append("<div class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></div>");
-        }
-        
-    }
-}*/
-
 /*
  Start:Neue Rendern und Gruppieren nach Fischart in profile.html
  */
@@ -343,7 +315,7 @@ function renderHistoryFiltered(historyDiv, filter) {
                             <img src="${fishEntry.img}" alt="${fishEntry.name}" class="fish-image">
                             <div>
                                 <h4>${fishEntry.name} um ${new Date(entry.date).toLocaleTimeString("de-DE")}</h4>
-                                <h4>${fishEntry.location}</h4>
+                                <h4>${entry.location}</h4>
                             </div>
                         </div>
                     </a>
@@ -365,32 +337,6 @@ function renderHistoryFiltered(historyDiv, filter) {
  Ende:Neue Rendern und Gruppieren nach Datum in history.html
  */
 
-/*Alte Render Funktion ohne Gruppierung für history.html*/
-
-/*function renderHistory(historyDiv){
-    var userHistory = user.history;
-    historyDiv.empty();
-    for(var i = 0; i<userHistory.length;i++){
-        var f = fish.find(f => f.id === userHistory[i].fish);
-        if(f){
-            historyDiv.append("<div class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></div>");
-        }
-    }
-}
-*/
-
-/*function renderHistoryFiltered(historyDiv,filter){
-    var filterDate = getFilterDate(filter);
-    var userHistory = user.history.filter(h => (new Date(h.date)).getTime() >= filterDate);
-    historyDiv.empty();
-    for(var i = 0; i<userHistory.length;i++){
-        var f = fish.find(f => f.id === userHistory[i].fish);
-        if(f){
-            historyDiv.append("<div class=\"list-group-item history-item\"><a href=\"history-detail.html?id="+ userHistory[i].id +"\"><h3>" + f.name + "</h3></a><p>"+ (new Date(userHistory[i].date)).toString() +"</p></div>");
-        }
-    }
-}
-*/
 function getFilterDate(filter){
     var filterDate = new Date();
     switch(filter){
@@ -411,18 +357,6 @@ function getFilterDate(filter){
     }
     return filterDate;
 }
-
-/*----------------------------------------------------*/
-/*function renderHistoryDetails(historyDiv,id){
-    var item = user.history.find(i => i.id === id);
-    if(item){
-        var f = fish.find(f => f.id === item.fish);
-        if(f){
-            historyDiv.append("<div class=\"history-item\"><a href=\"history-detail.html?id="+ item.id +"\"><h3>" + f.name + "</h3></a><p>"+ Date(item.date).toString() +"</p></div>");
-        }
-    }
-}
-*/
 
 function renderHistoryDetails(historyDiv, id) {
     console.log("Rendering history details...");
@@ -516,48 +450,7 @@ function renderHistoryDetails(historyDiv, id) {
             })
             .catch((e) => window.alert("Geocoder failed due to: " + e));
 
-            // // Akkordeon-HTML generieren
-            // const accordionItem = `
-            //     <div class="accordion-item">
-            //         <h2 class="accordion-header" id="heading${index}">
-            //             <button class="accordion-button ${isDefaultOpen ? "" : "collapsed"}" 
-            //                     type="button" 
-            //                     data-bs-toggle="collapse" 
-            //                     data-bs-target="#collapse${index}" 
-            //                     aria-expanded="${expanded}" 
-            //                     aria-controls="collapse${index}">
-            //                 <div class="d-flex align-items-center">
-            //                     <img src="${fishEntry.img}" alt="${fishEntry.name}" class="fish-image me-3"> 
-            //                     <div>
-            //                         <h5 class="mb-0">${fishEntry.name} am ${new Date(entry.date).toLocaleDateString("de-DE")} um ${new Date(entry.date).toLocaleTimeString("de-DE")}</h5>
-            //                         <h5 class="mb-0">${entry.location || "Unbekannt"}</h5>
-            //                     </div>
-            //                 </div>
-            //             </button>
-            //         </h2>
-            //         <div id="collapse${index}" 
-            //              class="accordion-collapse collapse ${collapseClass}" 
-            //              aria-labelledby="heading${index}" 
-            //              data-bs-parent="#accordionExample">
-            //             <div class="accordion-body">
-            //                 <strong>Details:</strong>
-            //                 <ul class="list-unstyled">
-            //                     <li><strong>Gewässer/Standort:</strong> ${entry.location || "Unbekannt"}</li>
-            //                     <li><strong>Gewicht:</strong> ${entry.weight || "N/A"} kg</li>
-            //                     <li><strong>Länge:</strong> ${entry.length || "N/A"} cm</li>
-            //                     <li><strong>Köder:</strong> ${entry.bait || "N/A"}</li>
-            //                     <li><strong>Technik:</strong> ${entry.technique || "N/A"}</li>
-            //                     <li><strong>Wetter:</strong> ${entry.weather || "N/A"}</li>
-            //                     <li><strong>Wassertemperatur:</strong> ${entry.waterTemp || "N/A"}°C</li>
-            //                 </ul>
-            //             </div>
-            //         </div>
-            //     </div>
-            // `;
-            // console.log("Generated Accordion Item HTML:", accordionItem);
 
-            // Akkordeon-Eintrag zum Container hinzufügen
-            // accordion.append(accordionItem);
         } else {
             console.warn("Fish not found for entry:", entry);
         }

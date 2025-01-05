@@ -26,10 +26,6 @@ function initMapCoordinates() {
     }) + "</p></div>");
     coordInfoWindow.setPosition(loc);
     coordInfoWindow.open(map);
-    // map.addListener("zoom_changed", () => {
-    //   coordInfoWindow.setContent(createInfoWindowContent(loc, map.getZoom()));
-    //   coordInfoWindow.open(map);
-    // });
 
   }, 1000);
 }
@@ -46,10 +42,6 @@ function initMap() {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
-        // const infoWindow = new google.maps.InfoWindow();
-        // infoWindow.setPosition(pos);
-        // infoWindow.setContent("<img class='map-fish-avatar' src='assets/img/fish_avatar.png' />");
-        // infoWindow.open(map);
         map.setCenter(pos);
       },
       () => {
@@ -134,24 +126,6 @@ function initMapEmpty() {
     handleLocationError(false, null, map.getCenter());
   }
 }
-
-
-// function initMap() {
-//   const chicago = new google.maps.LatLng(41.85, -87.65);
-//   const map = new google.maps.Map(document.getElementById("map"), {
-//     center: chicago,
-//     zoom: 3,
-//   });
-//   const coordInfoWindow = new google.maps.InfoWindow();
-
-//   coordInfoWindow.setContent(createInfoWindowContent(chicago, map.getZoom()));
-//   coordInfoWindow.setPosition(chicago);
-//   coordInfoWindow.open(map);
-//   map.addListener("zoom_changed", () => {
-//     coordInfoWindow.setContent(createInfoWindowContent(chicago, map.getZoom()));
-//     coordInfoWindow.open(map);
-//   });
-// }
 
 const TILE_SIZE = 256;
 
