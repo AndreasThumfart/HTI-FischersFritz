@@ -105,9 +105,9 @@ https://hti-fischersfritz.azurewebsites.net/
 -----------------------------------------------------------------------------------------   
 
 Autoren
-Team: Firat, Gunkel, Sucic & Thurmfart
+Team: Firat, Gunkel, Sucic & Thumfart
 Fach: Human Technology Interaction (HTI)
-Hochschule: [Name der Hochschule/Universität]
+Hochschule: FH Wien der WKW
 
 -----------------------------------------------------------------------------------------
 Lizenz
