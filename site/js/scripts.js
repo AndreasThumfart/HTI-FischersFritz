@@ -426,7 +426,7 @@ function getFilterDate(filter){
 
 function renderHistoryDetails(historyDiv, id) {
     console.log("Rendering history details...");
-
+    
     // Sicherstellen, dass das Ziel-Element existiert
     if (historyDiv.length === 0) {
         console.error("Target element for rendering (#fishHistory) not found in DOM.");
@@ -449,8 +449,22 @@ function renderHistoryDetails(historyDiv, id) {
             const collapseClass = isDefaultOpen ? "show" : ""; // Offen, wenn ID übereinstimmt
             const expanded = isDefaultOpen ? "true" : "false"; // aria-expanded entsprechend setzen
 
-            // Akkordeon-HTML generieren
-            const accordionItem = `
+            var coords = entry.location.split(',');
+            const pos = {
+                lat: parseFloat(coords[0]),
+                lng: parseFloat(coords[1]),
+              };
+            geocoder
+            .geocode({ location: pos })
+            .then((response) => {
+                var address = "";
+                if (response.results[0]) {
+                    address =response.results[0].formatted_address;
+                } else {
+                    address = "Unbekannt";
+                }
+                // Akkordeon-HTML generieren
+                const accordionItem = `
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading${index}">
                         <button class="accordion-button ${isDefaultOpen ? "" : "collapsed"}" 
@@ -463,19 +477,19 @@ function renderHistoryDetails(historyDiv, id) {
                                 <img src="${fishEntry.img}" alt="${fishEntry.name}" class="fish-image me-3"> 
                                 <div>
                                     <h5 class="mb-0">${fishEntry.name} am ${new Date(entry.date).toLocaleDateString("de-DE")} um ${new Date(entry.date).toLocaleTimeString("de-DE")}</h5>
-                                    <h5 class="mb-0">${entry.location || "Unbekannt"}</h5>
+                                    <h5 class="mb-0">${address}</h5>
                                 </div>
                             </div>
                         </button>
                     </h2>
                     <div id="collapse${index}" 
-                         class="accordion-collapse collapse ${collapseClass}" 
-                         aria-labelledby="heading${index}" 
-                         data-bs-parent="#accordionExample">
+                        class="accordion-collapse collapse ${collapseClass}" 
+                        aria-labelledby="heading${index}" 
+                        data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <strong>Details:</strong>
                             <ul class="list-unstyled">
-                                <li><strong>Gewässer/Standort:</strong> ${entry.location || "Unbekannt"}</li>
+                                <li><strong>Gewässer/Standort:</strong> ${address}</li>
                                 <li><strong>Gewicht:</strong> ${entry.weight || "N/A"} kg</li>
                                 <li><strong>Länge:</strong> ${entry.length || "N/A"} cm</li>
                                 <li><strong>Köder:</strong> ${entry.bait || "N/A"}</li>
@@ -486,11 +500,64 @@ function renderHistoryDetails(historyDiv, id) {
                         </div>
                     </div>
                 </div>
-            `;
-            console.log("Generated Accordion Item HTML:", accordionItem);
+                `;
+                accordion.append(accordionItem);
+
+                const coordInfoWindow = new google.maps.InfoWindow();
+
+                coordInfoWindow.setContent("<div class='map-pin'><img class='map-fish-avatar' src='" + fishEntry.img + "' /><p class='map-headline'>" + fishEntry.name + "</p><p>" + (new Date(entry.date)).toLocaleDateString("de-DE", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                }) + "</p></div>");
+                coordInfoWindow.setPosition(pos);
+                coordInfoWindow.open(map);
+
+            })
+            .catch((e) => window.alert("Geocoder failed due to: " + e));
+
+            // // Akkordeon-HTML generieren
+            // const accordionItem = `
+            //     <div class="accordion-item">
+            //         <h2 class="accordion-header" id="heading${index}">
+            //             <button class="accordion-button ${isDefaultOpen ? "" : "collapsed"}" 
+            //                     type="button" 
+            //                     data-bs-toggle="collapse" 
+            //                     data-bs-target="#collapse${index}" 
+            //                     aria-expanded="${expanded}" 
+            //                     aria-controls="collapse${index}">
+            //                 <div class="d-flex align-items-center">
+            //                     <img src="${fishEntry.img}" alt="${fishEntry.name}" class="fish-image me-3"> 
+            //                     <div>
+            //                         <h5 class="mb-0">${fishEntry.name} am ${new Date(entry.date).toLocaleDateString("de-DE")} um ${new Date(entry.date).toLocaleTimeString("de-DE")}</h5>
+            //                         <h5 class="mb-0">${entry.location || "Unbekannt"}</h5>
+            //                     </div>
+            //                 </div>
+            //             </button>
+            //         </h2>
+            //         <div id="collapse${index}" 
+            //              class="accordion-collapse collapse ${collapseClass}" 
+            //              aria-labelledby="heading${index}" 
+            //              data-bs-parent="#accordionExample">
+            //             <div class="accordion-body">
+            //                 <strong>Details:</strong>
+            //                 <ul class="list-unstyled">
+            //                     <li><strong>Gewässer/Standort:</strong> ${entry.location || "Unbekannt"}</li>
+            //                     <li><strong>Gewicht:</strong> ${entry.weight || "N/A"} kg</li>
+            //                     <li><strong>Länge:</strong> ${entry.length || "N/A"} cm</li>
+            //                     <li><strong>Köder:</strong> ${entry.bait || "N/A"}</li>
+            //                     <li><strong>Technik:</strong> ${entry.technique || "N/A"}</li>
+            //                     <li><strong>Wetter:</strong> ${entry.weather || "N/A"}</li>
+            //                     <li><strong>Wassertemperatur:</strong> ${entry.waterTemp || "N/A"}°C</li>
+            //                 </ul>
+            //             </div>
+            //         </div>
+            //     </div>
+            // `;
+            // console.log("Generated Accordion Item HTML:", accordionItem);
 
             // Akkordeon-Eintrag zum Container hinzufügen
-            accordion.append(accordionItem);
+            // accordion.append(accordionItem);
         } else {
             console.warn("Fish not found for entry:", entry);
         }
@@ -522,9 +589,9 @@ function saveCatch(){
     }
     else{
         var f= fish.find(f => f.name = $("input#fish").val());
-        item.fish = parseInt(f.id);
+        item.fish = parseInt(f.id)+1;
     }
-    
+    item.id = user.history.length;
     item.weigth = parseFloat($("input#weight").val());
     item.length = parseFloat($("input#length").val());
     item.notes = $("input#notes").val();
@@ -629,6 +696,7 @@ function scanFish(elem){
         $("input#weight").val(weight);
         $("input#length").val(length);
         $("input#fish").val(curFish.id);
+        $("input#fishid").val(curFish.id);
         $("#fish-label").text(curFish.name);
         $("#fish-icon").attr("src",curFish.img);
 

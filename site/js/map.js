@@ -1,34 +1,41 @@
 var map;
 const api_key = "AIzaSyC2kdFdCnCT51cVbPcbHRgvl7XFwmkPFTw";
+var geocoder;
 
 // init map for history item
 function initMapCoordinates() {
-  setTimeout(function(){
-    
-  id = parseInt(getParameterByName('id'));
-  var item = user.history.filter(i => i.id === id);
-  var coords = item[0].location.split(',');
+  geocoder = new google.maps.Geocoder();
+  setTimeout(function () {
 
-  const loc = new google.maps.LatLng(coords[0], coords[1]);
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: loc,
-    zoom: 16,
-  });
-  const coordInfoWindow = new google.maps.InfoWindow();
+    id = parseInt(getParameterByName('id'));
+    var item = user.history.find(i => i.id === id);
+    var fishItem = fish.find(f => f.id === item.fish);
+    var coords = item.location.split(',');
 
-  coordInfoWindow.setContent(createInfoWindowContent(loc, map.getZoom()));
-  coordInfoWindow.setPosition(loc);
-  coordInfoWindow.open(map);
-  map.addListener("zoom_changed", () => {
-    coordInfoWindow.setContent(createInfoWindowContent(loc, map.getZoom()));
+    const loc = new google.maps.LatLng(coords[0], coords[1]);
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: loc,
+      zoom: 16,
+    });
+    const coordInfoWindow = new google.maps.InfoWindow();
+
+    coordInfoWindow.setContent("<div class='map-pin'><img class='map-fish-avatar' src='" + fishItem.img + "' /><p class='map-headline'>" + fishItem.name + "</p><p>" + (new Date(item.date)).toLocaleDateString("de-DE", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    }) + "</p></div>");
+    coordInfoWindow.setPosition(loc);
     coordInfoWindow.open(map);
-  });
-  
-  },5000);
+    // map.addListener("zoom_changed", () => {
+    //   coordInfoWindow.setContent(createInfoWindowContent(loc, map.getZoom()));
+    //   coordInfoWindow.open(map);
+    // });
+
+  }, 1000);
 }
 
 // init map, requesting current location (for home and catch)
-function initMap(){
+function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 16,
   });
@@ -55,8 +62,8 @@ function initMap(){
   }
 }
 
-function getLocation(){
-  const geocoder = new google.maps.Geocoder();
+function getLocation() {
+  geocoder = new google.maps.Geocoder();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -74,19 +81,13 @@ function getLocation(){
           path: "M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z",
           fillColor: "black",
           fillOpacity: 0.8,
-          strokeWeight:0,
-          rotation:0,
-          scale:0.1,
-          anchor: new google.maps.Point(0,0)
+          strokeWeight: 0,
+          rotation: 0,
+          scale: 0.1,
+          anchor: new google.maps.Point(0, 0)
         };
 
-        // new google.maps.Marker({
-        //   position: map.getCenter(),
-        //   icon: svgMarker,
-        //   map: map,
-        // });
-
-        $("input#location").val(pos.lat + ","+pos.lng);
+        $("input#location").val(pos.lat + "," + pos.lng);
         geocoder
           .geocode({ location: pos })
           .then((response) => {
@@ -103,7 +104,7 @@ function getLocation(){
         handleLocationError(true, infoWindow, map.getCenter());
       },
     );
-    
+
 
   } else {
     // Browser doesn't support Geolocation
@@ -111,7 +112,7 @@ function getLocation(){
   }
 }
 
-function initMapEmpty(){
+function initMapEmpty() {
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 16,
   });
@@ -125,7 +126,7 @@ function initMapEmpty(){
         map.setCenter(pos);
       },
       () => {
-        handleLocationError(true,null, map.getCenter());
+        handleLocationError(true, null, map.getCenter());
       },
     );
   } else {

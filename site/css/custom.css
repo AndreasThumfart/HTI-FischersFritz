@@ -519,3 +519,17 @@ Button Gruppe
         }
     
 }
+
+
+.map-pin{
+    width:130px;
+}
+    .map-pin img{
+        float:left;
+        margin:0 15px 0 10px;
+    }
+    .map-pin .map-headline{
+        display:inline;
+        font-size: 18px;
+        font-weight: bold;
+    }

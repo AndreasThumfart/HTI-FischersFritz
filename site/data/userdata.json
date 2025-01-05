@@ -47,12 +47,12 @@
                 "notes": "Erster Fang des Tages, guter Drill."
             },
             {
-                "id": 3,
+                "id": 4,
                 "fish": 4,
                 "weight": 5.4,
                 "length": 54,
                 "date": "2024-11-03T13:30:00",
-                "location": "48.20343780208678, 16.437628360949162",
+                "location": "48.23532479251672, 16.55528667559578",
                 "spot": "Ufer, nahe der Schilfkante",
                 "bait": "Gummifisch",
                 "technique": "Jiggen",
@@ -61,12 +61,12 @@
                 "notes": "Erster Fang des Tages, guter Drill."
             },
             {
-                "id": 3,
+                "id": 5,
                 "fish": 4,
                 "weight": 5.4,
                 "length": 54,
                 "date": "2024-11-03T12:30:00",
-                "location": "48.20343780208678, 16.437628360949162",
+                "location": "48.18278752860566, 16.48456417487284",
                 "spot": "Ufer, nahe der Schilfkante",
                 "bait": "Gummifisch",
                 "technique": "Jiggen",
@@ -75,12 +75,12 @@
                 "notes": "Erster Fang des Tages, guter Drill."
             },
             {
-                "id": 3,
+                "id": 6,
                 "fish": 5,
                 "weight": 5.4,
                 "length": 54,
                 "date": "2023-11-03T13:30:00",
-                "location": "48.20343780208678, 16.437628360949162",
+                "location": "48.19282153792536, 16.482415450861314",
                 "spot": "Ufer, nahe der Schilfkante",
                 "bait": "Gummifisch",
                 "technique": "Jiggen",
@@ -89,12 +89,12 @@
                 "notes": "Erster Fang des Tages, guter Drill."
             }, 
             {
-                "id": 3,
+                "id": 7,
                 "fish": 5,
                 "weight": 5.4,
                 "length": 54,
                 "date": "2023-11-03T12:30:00",
-                "location": "48.20343780208678, 16.437628360949162",
+                "location": "48.23027119759091, 16.55337593479393",
                 "spot": "Ufer, nahe der Schilfkante",
                 "bait": "Gummifisch",
                 "technique": "Jiggen",
