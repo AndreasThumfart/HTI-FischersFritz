@@ -96,30 +96,6 @@ Auf der Profilseite können Benutzer ihre Statistiken und bisherigen Fänge sehe
 
 ----------------------------------------------------------------------------------------
 
-Struktur des Projekts
-
-fischers-fritz/
-├── index.html          # Startseite
-├── profile.html        # Profilseite
-├── history.html        # History-Seite
-├── catch.html          # Seite zum Erfassen eines neuen Fangs
-├── css/
-│   ├── styles.css      # Bootstrap-Styling
-│   ├── custom.css      # Projekt-spezifisches Styling
-├── js/
-│   ├── scripts.js      # Haupt-JavaScript-Funktionen
-│   ├── map.js          # Google Maps API-Integration
-├── data/
-│   ├── userdata.json   # Beispiel-Benutzerdaten
-│   ├── fish.json       # Beispiel-Fischdaten
-├── assets/
-│   ├── img/            # Bilder und Icons
-│   │   ├── catch.png   # Bild für den Fang-Button
-│   │   ├── fish_*.png  # Fischbilder
-│   ├── icons/          # Icons
-
------------------------------------------------------------------------------------------
-
 Live-Demo
 Das Projekt kann online unter folgendem Link aufgerufen und getestet werden:
 
